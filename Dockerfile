@@ -9,7 +9,7 @@ COPY supervisor/supervisord-healthcheck.ini /etc/supervisor.d/supervisord-health
 # setup app
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-ADD %APPLICATION_SRC% /usr/src/app/
+COPY app/ /usr/src/app/
 COPY supervisor/supervisord-app.ini /etc/supervisor.d/supervisord-app.ini
 
 RUN apk add --update make gcc g++ python libc6-compat postgresql-dev bash curl supervisor  && \
