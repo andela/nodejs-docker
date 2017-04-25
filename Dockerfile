@@ -5,6 +5,7 @@ ENV GRPC_HEALTH_CHECK_TAG %GRPC_HEALTH_CHECK_TAG%
 # setup health-check
 ADD https://github.com/andela/grpc-health/releases/download/v${GRPC_HEALTH_CHECK_TAG}/artifact /healthcheck-artifact
 COPY supervisor/supervisord-healthcheck.ini /etc/supervisor.d/supervisord-healthcheck.ini
+RUN chmod +x /healthcheck-artifact
 
 # setup app
 RUN mkdir -p /usr/src/app
