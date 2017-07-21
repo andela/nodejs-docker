@@ -16,7 +16,8 @@ COPY supervisor/supervisord-app.ini /etc/supervisor.d/supervisord-app.ini
 RUN apk add --update make gcc g++ python libc6-compat postgresql-dev git bash curl supervisor && \
   npm install --production && \
   apk del make gcc g++ python postgresql-dev && \
-  rm -rf /tmp/* /var/cache/apk/* /root/.npm /root/.node-gyp
+  rm -rf /tmp/* /var/cache/apk/* /root/.npm /root/.node-gyp && \
+  ENV_NODE=production npm build || exit 0
 
 EXPOSE 8080
 EXPOSE 50050
