@@ -18,8 +18,6 @@ RUN apk add --update make gcc g++ python libc6-compat postgresql-dev git bash cu
   apk del make gcc g++ python postgresql-dev && \
   rm -rf /tmp/* /var/cache/apk/* /root/.npm /root/.node-gyp
 
-RUN NODE_ENV=production npm run build
-
 EXPOSE 8080
 EXPOSE 50050
 
