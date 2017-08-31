@@ -1,4 +1,4 @@
-FROM node:6-alpine
+FROM node:8-alpine
 
 ENV GRPC_HEALTH_CHECK_TAG %GRPC_HEALTH_CHECK_TAG%
 
