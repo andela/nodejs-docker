@@ -1,6 +1,6 @@
 FROM node:6-alpine
 
-ENV GRPC_HEALTH_CHECK_TAG 1.0.2
+ENV GRPC_HEALTH_CHECK_TAG %GRPC_HEALTH_CHECK_TAG%
 
 RUN apk add --update make gcc g++ python libc6-compat postgresql-dev git bash curl supervisor && \
 apk del make gcc g++ python postgresql-dev
