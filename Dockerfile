@@ -1,8 +1,9 @@
-FROM node:8-alpine
+FROM node:8
 
 ENV GRPC_HEALTH_CHECK_TAG %GRPC_HEALTH_CHECK_TAG%
 ENV DEPLOYMENT_TAG %IMG_TAG%
 
+RUN apt-get update && apt-get install -y supervisor
 # setup health-check
 ADD https://github.com/andela/grpc-health/releases/download/v${GRPC_HEALTH_CHECK_TAG}/artifact /healthcheck-artifact
 COPY supervisor/supervisord-healthcheck.ini /etc/supervisor.d/supervisord-healthcheck.ini
@@ -14,10 +15,7 @@ WORKDIR /usr/src/app
 COPY app/ /usr/src/app/
 COPY supervisor/supervisord-app.ini /etc/supervisor.d/supervisord-app.ini
 
-RUN apk add --update make gcc g++ python libc6-compat postgresql-dev git bash curl supervisor && \
-  yarn --prod && \
-  apk del make gcc g++ python postgresql-dev && \
-  rm -rf /tmp/* /var/cache/apk/* /root/.npm /root/.node-gyp
+RUN yarn --prod
 
 EXPOSE 8080
 EXPOSE 50050
