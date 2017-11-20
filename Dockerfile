@@ -6,18 +6,18 @@ ENV DEPLOYMENT_TAG %IMG_TAG%
 RUN apt-get update && apt-get install -y supervisor
 # setup health-check
 ADD https://github.com/andela/grpc-health/releases/download/v${GRPC_HEALTH_CHECK_TAG}/artifact /healthcheck-artifact
-COPY supervisor/supervisord-healthcheck.ini /etc/supervisor.d/supervisord-healthcheck.ini
+COPY supervisor/supervisord-healthcheck.ini /etc/supervisor/conf.d/supervisord-healthcheck.conf
 RUN chmod +x /healthcheck-artifact
 
 # setup app
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY app/ /usr/src/app/
-COPY supervisor/supervisord-app.ini /etc/supervisor.d/supervisord-app.ini
+COPY supervisor/supervisord-app.ini /etc/supervisor/conf.d/supervisord-app.conf
 
 RUN yarn --prod
 
 EXPOSE 8080
 EXPOSE 50050
 
-CMD ["supervisord", "-c", "/etc/supervisord.conf", "-n"]
+CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf", "-n"]
