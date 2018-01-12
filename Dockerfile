@@ -5,10 +5,6 @@ ENV DEPLOYMENT_TAG %IMG_TAG%
 ARG NPM_TOKEN
 
 RUN apt-get update && apt-get install -y supervisor
-# setup health-check
-ADD https://github.com/andela/grpc-health/releases/download/v${GRPC_HEALTH_CHECK_TAG}/artifact /healthcheck-artifact
-COPY supervisor/supervisord-healthcheck.ini /etc/supervisor/conf.d/supervisord-healthcheck.conf
-RUN chmod +x /healthcheck-artifact
 
 # setup app
 RUN mkdir -p /usr/src/app
