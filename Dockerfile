@@ -6,6 +6,11 @@ ARG NPM_TOKEN
 
 RUN apt-get update && apt-get install -y supervisor
 
+# setup cloudsql proxy
+ADD https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 /cloud_sql_proxy
+COPY supervisor/supervisord-cloudsql.ini /etc/supervisor/conf.d/supervisord-cloudsql.conf
+RUN chmod +x /cloud_sql_proxy
+
 # setup app
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
