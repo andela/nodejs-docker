@@ -11,6 +11,11 @@ ADD https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 /cloud_sql_proxy
 COPY supervisor/supervisord-cloudsql.ini /etc/supervisor/conf.d/supervisord-cloudsql.conf
 RUN chmod +x /cloud_sql_proxy
 
+# setup health-check
+ADD https://github.com/andela/grpc-health/releases/download/v${GRPC_HEALTH_CHECK_TAG}/artifact /healthcheck-artifact
+COPY supervisor/supervisord-healthcheck.ini /etc/supervisor/conf.d/supervisord-healthcheck.conf
+RUN chmod +x /healthcheck-artifact
+
 # setup app
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
