@@ -12,7 +12,7 @@ WORKDIR /usr/src/app
 COPY app/ /usr/src/app/
 COPY supervisor/supervisord-app.ini /etc/supervisor/conf.d/supervisord-app.conf
 
-RUN echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc && yarn --prod
+RUN echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc && yarn config set registry https://registry.npmjs.org/ && yarn --prod
 
 EXPOSE 8080
 EXPOSE 50050
