@@ -5,6 +5,7 @@ ENV DEPLOYMENT_TAG %IMG_TAG%
 ARG NPM_TOKEN
 
 RUN apt-get update && apt-get install -y supervisor
+RUN mkdir -p /opt/yarn/bin && ln -s /opt/yarn/yarn-v1.5.1/bin/yarn /opt/yarn/bin/yarn
 
 # setup health-check
 ADD https://github.com/andela/grpc-health/releases/download/v${GRPC_HEALTH_CHECK_TAG}/artifact /healthcheck-artifact
